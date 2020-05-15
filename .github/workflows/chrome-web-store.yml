@@ -11,7 +11,13 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: zip app.zip background.js browser_action.js icon128.png manifest.json popup.html
-      - run: |
+      - name: Upload and publish
+        env:
+          CHROME_WEB_STORE_APP_ID: ${{ secrets.CHROME_WEB_STORE_APP_ID }}
+          CHROME_WEB_STORE_CLIENT_ID: ${{ secrets.CHROME_WEB_STORE_CLIENT_ID }}
+          CHROME_WEB_STORE_CLIENT_SECRET: ${{ secrets.CHROME_WEB_STORE_CLIENT_SECRET }}
+          CHROME_WEB_STORE_REFRESH_TOKEN: ${{ secrets.CHROME_WEB_STORE_REFRESH_TOKEN }}
+        run: |
           ACCESS_TOKEN=$(curl -X POST https://oauth2.googleapis.com/token -d \
             "client_id=$CHROME_WEB_STORE_CLIENT_ID&client_secret=$CHROME_WEB_STORE_CLIENT_SECRET&refresh_token=$CHROME_WEB_STORE_REFRESH_TOKEN&grant_type=refresh_token" \
             | jq '.access_token' -r)
