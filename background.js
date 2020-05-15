@@ -1,3 +1,6 @@
+let video = null;
+let pip = false;
+
 const startPip = () => {
   chrome.tabCapture.capture({
     video: true,
@@ -12,10 +15,8 @@ const startPip = () => {
       }
     }
   }, (stream) => {
-    const video = document.createElement('video');
+    video = document.createElement('video');
     video.srcObject = stream;
-
-    let pip = false;
 
     video.addEventListener('enterpictureinpicture', () => {
       pip = true;
@@ -34,11 +35,24 @@ const startPip = () => {
     stream.addEventListener('inactive', () => {
       if (pip) {
         document.exitPictureInPicture();
+        video = null;
       }
     });
   });
 }
 
-chrome.runtime.onMessage.addListener(() => {
-  startPip();
+const stopPip = () => {
+  document.exitPictureInPicture();
+  video = null;
+}
+
+chrome.runtime.onMessage.addListener((_message, _sender, sendResponse) => {
+  if (pip) {
+    stopPip();
+  } else {
+    startPip();
+  }
+
+  sendResponse({state: !pip});
+  return true;
 });
