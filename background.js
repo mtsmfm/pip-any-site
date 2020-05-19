@@ -46,13 +46,10 @@ const stopPip = () => {
   video = null;
 }
 
-chrome.runtime.onMessage.addListener((_message, _sender, sendResponse) => {
+chrome.browserAction.onClicked.addListener(() => {
   if (pip) {
     stopPip();
   } else {
     startPip();
   }
-
-  sendResponse({state: !pip});
-  return true;
 });

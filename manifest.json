@@ -1,9 +1,10 @@
 {
   "name": "Picture-in-Picture any site",
   "description": "Picture-in-Picture any site even non video",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "icons": {
-    "128": "icon128.png"
+    "16": "icons/icon16.png",
+    "128": "icons/icon128.png"
   },
   "permissions": [
     "tabCapture"
@@ -14,7 +15,11 @@
     ]
   },
   "browser_action": {
-    "default_popup": "popup.html"
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "24": "icons/icon24.png",
+      "32": "icons/icon32.png"
+    }
   },
   "manifest_version": 2
 }

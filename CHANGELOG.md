@@ -1,5 +1,9 @@
 # Change log
 
+## 0.4.0
+
+- Use browserAction.onClicked
+
 ## 0.3.0
 
 - Toggle start/stop (#2)

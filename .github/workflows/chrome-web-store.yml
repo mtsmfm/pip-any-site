@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-18.04
     steps:
       - uses: actions/checkout@v2
-      - run: zip app.zip background.js browser_action.js icon128.png manifest.json popup.html
+      - run: zip app.zip background.js icons manifest.json
       - name: Upload and publish
         env:
           CHROME_WEB_STORE_APP_ID: ${{ secrets.CHROME_WEB_STORE_APP_ID }}
