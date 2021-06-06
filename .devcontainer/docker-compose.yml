@@ -1,0 +1,18 @@
+version: "3.8"
+services:
+  app:
+    init: true
+    build:
+      context: .
+    command: sleep infinity
+    env_file:
+      - app.env
+    volumes:
+      - ..:/app:cached
+      - dotconfig:/home/app/.config
+      - vendor:/vendor
+
+volumes:
+  app:
+  vendor:
+  dotconfig:

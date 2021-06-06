@@ -1,0 +1,10 @@
+{
+  "dockerComposeFile": "./docker-compose.yml",
+  "service": "app",
+  "workspaceFolder": "/app",
+  "initializeCommand": "cp -n .devcontainer/app.env.example .devcontainer/app.env",
+  "name": "${localWorkspaceFolderBasename}",
+  "extensions": [
+    "esbenp.prettier-vscode",
+  ]
+}
