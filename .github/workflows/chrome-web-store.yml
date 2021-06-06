@@ -10,6 +10,11 @@ jobs:
     runs-on: ubuntu-18.04
     steps:
       - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: "16"
+      - run: npm install
+      - run: npm run build
       - run: zip -r app.zip background.js icons manifest.json
       - name: Upload and publish
         env:
@@ -43,4 +48,3 @@ jobs:
             -H "Content-Length: 0" \
             -X POST \
             https://www.googleapis.com/chromewebstore/v1.1/items/$CHROME_WEB_STORE_APP_ID/publish
-
