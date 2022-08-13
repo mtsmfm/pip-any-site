@@ -3,10 +3,18 @@
     "@parcel/config-webextension": "^2.7.0",
     "@types/chrome": "^0.0.193",
     "parcel": "^2.7.0",
+    "process": "^0.11.10",
     "typescript": "^4.3.2"
   },
   "scripts": {
     "dev": "parcel watch manifest.json --config @parcel/config-webextension",
     "build": "parcel build manifest.json --config @parcel/config-webextension"
+  },
+  "dependencies": {
+    "@types/dom-mediacapture-transform": "^0.1.3",
+    "@types/react": "^18.0.17",
+    "@types/react-dom": "^18.0.6",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
   }
 }

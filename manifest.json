@@ -1,4 +1,5 @@
 {
+  "manifest_version": 3,
   "name": "Picture-in-Picture any site",
   "description": "Picture-in-Picture any site even non video",
   "version": "0.4.1",
@@ -7,19 +8,29 @@
     "128": "icons/icon128.png"
   },
   "permissions": [
+    "activeTab",
+    "tabs",
     "tabCapture"
   ],
   "background": {
-    "scripts": [
-      "src/background.ts"
-    ]
+    "service_worker": "src/background.ts"
   },
-  "browser_action": {
+  "action": {
     "default_icon": {
       "16": "icons/icon16.png",
       "24": "icons/icon24.png",
       "32": "icons/icon32.png"
-    }
+    },
+    "default_popup": "src/popup.html"
   },
-  "manifest_version": 2
+  "content_scripts": [
+    {
+      "matches": [
+        "*://*/*"
+      ],
+      "js": [
+        "src/content.tsx"
+      ]
+    }
+  ]
 }
