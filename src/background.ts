@@ -1,14 +1,6 @@
 let video: HTMLVideoElement | null = null;
 let pip = false;
 
-interface HTMLVideoElement {
-  requestPictureInPicture: () => Promise<any>;
-}
-
-interface Document {
-  exitPictureInPicture: () => Promise<any>;
-}
-
 const startPip = () => {
   chrome.tabCapture.capture(
     {
