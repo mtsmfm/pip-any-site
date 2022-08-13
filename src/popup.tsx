@@ -13,7 +13,7 @@ const startPip = () => {
         { consumerTabId: tabId },
         (streamId) => {
           chrome.tabs.sendMessage(tabId, {
-            command: "tab-media-stream",
+            command: "start-pip",
             streamId: streamId,
           });
         }
