@@ -1,3 +1,4 @@
 node_modules
-/background.js
 *.env
+/dist
+/.parcel-cache
