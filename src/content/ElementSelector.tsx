@@ -1,7 +1,9 @@
 import * as React from "react";
 import { useState } from "react";
 
-export const ElementSelector: React.FC = () => {
+export const ElementSelector: React.FC<{
+  onSelect: (rect: DOMRect) => void;
+}> = ({ onSelect }) => {
   const [rect, setRect] = useState<DOMRect>();
 
   return (
@@ -10,6 +12,11 @@ export const ElementSelector: React.FC = () => {
         const elems = document.elementsFromPoint(e.clientX, e.clientY);
         const rect = elems[1].getBoundingClientRect();
         setRect(rect);
+      }}
+      onClick={() => {
+        if (rect) {
+          onSelect(rect);
+        }
       }}
       style={{
         position: "fixed",

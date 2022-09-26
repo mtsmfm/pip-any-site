@@ -1,20 +1,28 @@
 import * as React from "react";
 import { useEffect, useRef, useState } from "react";
+import { ElementSelector } from "./ElementSelector";
 import { setupCropStream } from "./setupCropStream";
-
-interface Request {
-  command: "start-pip";
-  streamId: number;
-}
+import { Request } from "../popup";
 
 export const App: React.FC = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const [streamId, setStreamId] = useState<string>();
   const [stream, setStream] = useState<MediaStream>();
+  const [selectingElement, setSelectingElement] = useState(false);
 
   useEffect(() => {
-    const listener = async (request: Request) => {
-      const stream = await setupCropStream(request.streamId);
-      setStream(stream);
+    const listener = async ({ command, streamId }: Request) => {
+      setStreamId(streamId);
+
+      switch (command) {
+        case "start-page-pip": {
+          const stream = await setupCropStream(streamId);
+          setStream(stream);
+        }
+        case "start-elem-pip": {
+          setSelectingElement(true);
+        }
+      }
     };
 
     chrome.runtime.onMessage.addListener(listener);
@@ -22,7 +30,7 @@ export const App: React.FC = () => {
     return () => {
       chrome.runtime.onMessage.removeListener(listener);
     };
-  }, []);
+  }, [setStream]);
 
   useEffect(() => {
     if (videoRef.current && stream) {
@@ -53,15 +61,22 @@ export const App: React.FC = () => {
   }, [videoRef.current, stream]);
 
   useEffect(() => {
-    if (stream) {
-      if (videoRef.current) {
-        videoRef.current.srcObject = stream;
-      }
+    if (stream && videoRef.current) {
+      videoRef.current.srcObject = stream;
     }
   }, [stream]);
 
   return (
     <>
+      {selectingElement && streamId && (
+        <ElementSelector
+          onSelect={async (rect) => {
+            const stream = await setupCropStream(streamId, rect);
+            setStream(stream);
+            setSelectingElement(false);
+          }}
+        />
+      )}
       <video ref={videoRef} style={{ display: "none" }} />
     </>
   );

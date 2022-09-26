@@ -5,7 +5,7 @@ interface Rect {
   height: number;
 }
 
-export const setupCropStream = async (streamId: number, rect?: Rect) => {
+export const setupCropStream = async (streamId: string, rect?: Rect) => {
   const mandatory: any = {
     chromeMediaSource: "tab",
     chromeMediaSourceId: streamId,
@@ -38,12 +38,7 @@ export const setupCropStream = async (streamId: number, rect?: Rect) => {
         new TransformStream({
           transform: (chunk, controller) => {
             const newFrame = new VideoFrame(chunk as any, {
-              visibleRect: {
-                x: 0,
-                width: chunk.codedWidth / 2,
-                y: 100,
-                height: 100,
-              },
+              visibleRect: rect,
             });
             // const newFrame = new VideoFrame(chunk as any);
             controller.enqueue(newFrame);

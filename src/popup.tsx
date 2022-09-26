@@ -4,7 +4,17 @@ import { createRoot } from "react-dom/client";
 const domContainer = document.querySelector("#app")!;
 const root = createRoot(domContainer);
 
-const startPip = () => {
+export type Request =
+  | {
+      command: "start-page-pip";
+      streamId: string;
+    }
+  | {
+      command: "start-elem-pip";
+      streamId: string;
+    };
+
+const startPip = (command: Request["command"]) => {
   chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
     const tabId = tabs[0].id;
 
@@ -13,9 +23,9 @@ const startPip = () => {
         { consumerTabId: tabId },
         (streamId) => {
           chrome.tabs.sendMessage(tabId, {
-            command: "start-pip",
-            streamId: streamId,
-          });
+            command,
+            streamId,
+          } as Request);
         }
       );
     }
@@ -25,7 +35,12 @@ const startPip = () => {
 const App: React.FC = () => {
   return (
     <div>
-      <button onClick={startPip}>Start pip</button>
+      <button onClick={() => startPip("start-page-pip")}>
+        PiP entire page
+      </button>
+      <button onClick={() => startPip("start-elem-pip")}>
+        PiP specific elem
+      </button>
     </div>
   );
 };
