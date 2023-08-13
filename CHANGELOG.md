@@ -1,5 +1,9 @@
 # Change log
 
+## 0.5.0
+
+- Use parcel
+
 ## 0.4.1
 
 - Fix package

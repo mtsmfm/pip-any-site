@@ -1,7 +1,7 @@
 {
   "name": "Picture-in-Picture any site",
   "description": "Picture-in-Picture any site even non video",
-  "version": "0.4.1",
+  "version": "0.5.0",
   "icons": {
     "16": "icons/icon16.png",
     "128": "icons/icon128.png"
