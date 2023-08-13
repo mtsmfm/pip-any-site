@@ -1,10 +1,10 @@
 {
   "devDependencies": {
     "@parcel/config-webextension": "^2.9.3",
-    "@types/chrome": "^0.0.144",
+    "@types/chrome": "^0.0.243",
     "parcel": "^2.9.3",
     "ts-loader": "^9.2.3",
-    "typescript": "^4.3.2",
+    "typescript": "^5.1.6",
     "webpack": "^5.38.1",
     "webpack-cli": "^4.7.0"
   },
