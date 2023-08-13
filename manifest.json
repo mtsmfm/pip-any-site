@@ -6,13 +6,9 @@
     "16": "icons/icon16.png",
     "128": "icons/icon128.png"
   },
-  "permissions": [
-    "tabCapture"
-  ],
+  "permissions": ["tabCapture"],
   "background": {
-    "scripts": [
-      "background.js"
-    ]
+    "scripts": ["src/background.ts"]
   },
   "browser_action": {
     "default_icon": {
