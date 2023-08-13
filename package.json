@@ -3,13 +3,10 @@
     "@parcel/config-webextension": "^2.9.3",
     "@types/chrome": "^0.0.243",
     "parcel": "^2.9.3",
-    "ts-loader": "^9.2.3",
-    "typescript": "^5.1.6",
-    "webpack": "^5.38.1",
-    "webpack-cli": "^4.7.0"
+    "typescript": "^5.1.6"
   },
   "scripts": {
-    "dev": "webpack --mode development --watch",
-    "build": "webpack --mode production"
+    "dev": "parcel watch manifest.json --host localhost --config @parcel/config-webextension",
+    "build": "parcel build manifest.json --config @parcel/config-webextension"
   }
 }
