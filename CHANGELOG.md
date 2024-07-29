@@ -1,5 +1,9 @@
 # Change log
 
+## 1.0.1
+
+- Use activeTab and scripting instead
+
 ## 1.0.0
 
 - Migrate to MV3

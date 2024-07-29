@@ -2,23 +2,16 @@
   "$schema": "https://json.schemastore.org/chrome-manifest.json",
   "name": "Picture-in-Picture any site",
   "description": "Picture-in-Picture any site even non video",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "icons": {
     "16": "icons/icon16.png",
     "128": "icons/icon128.png"
   },
-  "permissions": ["tabCapture"],
+  "permissions": ["tabCapture", "activeTab", "scripting"],
   "background": {
     "service_worker": "src/background.ts",
     "type": "module"
   },
-  "content_scripts": [
-    {
-      "matches": ["<all_urls>"],
-      "js": ["src/content.ts"],
-      "run_at": "document_start"
-    }
-  ],
   "action": {
     "default_icon": {
       "16": "icons/icon16.png",
