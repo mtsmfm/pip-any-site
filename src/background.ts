@@ -1,60 +1,33 @@
-let video: HTMLVideoElement | null = null;
-let pip = false;
-
-const startPip = () => {
-  chrome.tabCapture.capture(
-    {
-      video: true,
-      videoConstraints: {
-        mandatory: {
-          minWidth: 50,
-          minHeight: 50,
-          maxWidth: 1920,
-          maxHeight: 1080,
-          minFrameRate: 10,
-          maxFrameRate: 60,
-        },
-      },
-    },
-    (stream) => {
-      if (stream) {
-        video = document.createElement("video");
-        video.srcObject = stream;
-
-        video.addEventListener("enterpictureinpicture", () => {
-          pip = true;
-        });
-
-        video.addEventListener("leavepictureinpicture", () => {
-          pip = false;
-          stream.getTracks().forEach((t) => t.stop());
-        });
-
-        video.addEventListener("loadedmetadata", () => {
-          video!.requestPictureInPicture();
-          video!.play();
-        });
-
-        stream.addEventListener("inactive", () => {
-          if (pip) {
-            document.exitPictureInPicture();
-            video = null;
-          }
-        });
-      }
+chrome.action.onClicked.addListener(async (tab) => {
+  if (tab.id && tab.url) {
+    if (tab.url.startsWith("chrome://")) {
+      // noop
+    } else {
+      await chrome.tabs.sendMessage(tab.id!, { tabId: tab.id });
     }
-  );
-};
-
-const stopPip = () => {
-  document.exitPictureInPicture();
-  video = null;
-};
-
-chrome.browserAction.onClicked.addListener(() => {
-  if (pip) {
-    stopPip();
-  } else {
-    startPip();
   }
 });
+
+chrome.runtime.onMessage.addListener(
+  (
+    { action, tabId }: { action: "GET_STREAM_ID"; tabId: number },
+    _sender,
+    sendResponse
+  ) => {
+    switch (action) {
+      case "GET_STREAM_ID": {
+        chrome.tabCapture.getMediaStreamId(
+          {
+            targetTabId: tabId,
+            consumerTabId: tabId,
+          },
+          (streamId) => {
+            sendResponse({ streamId });
+          }
+        );
+      }
+    }
+
+    return true;
+  }
+);
