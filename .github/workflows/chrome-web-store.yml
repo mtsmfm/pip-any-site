@@ -32,6 +32,7 @@ jobs:
             -H "x-goog-api-version: 2" \
             -X PUT \
             -T app.zip \
+            -f \
             https://www.googleapis.com/upload/chromewebstore/v1.1/items/$CHROME_WEB_STORE_APP_ID
 
           curl \
@@ -40,6 +41,7 @@ jobs:
             -H "Content-Length: 0" \
             -H "Expect:" \
             -X GET \
+            -f \
             https://www.googleapis.com/chromewebstore/v1.1/items/$CHROME_WEB_STORE_APP_ID?projection=draft
 
           curl \
@@ -47,4 +49,5 @@ jobs:
             -H "x-goog-api-version: 2" \
             -H "Content-Length: 0" \
             -X POST \
+            -f \
             https://www.googleapis.com/chromewebstore/v1.1/items/$CHROME_WEB_STORE_APP_ID/publish
