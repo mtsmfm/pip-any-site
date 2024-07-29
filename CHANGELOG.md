@@ -1,5 +1,9 @@
 # Change log
 
+## 1.0.0
+
+- Migrate to MV3
+
 ## 0.5.0
 
 - Use parcel
