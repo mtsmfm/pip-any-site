@@ -1,6 +1,6 @@
 {
   "devDependencies": {
-    "@parcel/config-webextension": "^2.12.0",
+    "@parcel/config-webextension": "^2.15.4",
     "@types/chrome": "^0.0.269",
     "parcel": "^2.12.0",
     "typescript": "^5.5.4"
